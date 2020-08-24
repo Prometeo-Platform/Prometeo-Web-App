@@ -13,7 +13,16 @@ profiles:
         releases:
         - name: webapp
           chartPath: chart/webapp
+          namespace: test
           artifactOverrides:
-            mqttclient:
+            webapp:
               image:
                 repository: uk.icr.io/prometeo-cluster/webapp
+          overrides:
+            webapp:
+              namespace: test
+            imagepullsecrets:
+              name: test-uk-icr-io
+          
+      
+              
