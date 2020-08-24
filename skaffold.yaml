@@ -1,0 +1,19 @@
+apiVersion: skaffold/v2beta6
+kind: Config
+
+profiles:
+  - name: test
+    activation:
+      - command: test
+    build:
+      artifacts:
+      - image: uk.icr.io/prometeo-cluster/webapp
+    deploy:
+      helm:
+        releases:
+        - name: webapp
+          chartPath: chart/webapp
+          artifactOverrides:
+            mqttclient:
+              image:
+                repository: uk.icr.io/prometeo-cluster/webapp
