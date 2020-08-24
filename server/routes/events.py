@@ -1,14 +1,19 @@
 #import requests
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
 
 class event(object):
 
     def insert_event(self, data):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_create_event', (data))
 
@@ -31,9 +36,14 @@ class event(object):
 
     def update_event(self, data):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
 
+            cursor = conn.cursor()
             cursor.callproc('sp_update_event', (data))
 
             for result in cursor.stored_results():
@@ -54,8 +64,14 @@ class event(object):
 
     def get_event(self, eventid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
             print("get_event")
             print(eventid)
 
@@ -84,8 +100,14 @@ class event(object):
         print("get_allevents - entro en la funcion")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             print("get_allevents - llamada a sql")
             cursor.callproc('sp_select_all_events')
@@ -109,8 +131,14 @@ class event(object):
 
     def get_event_firefighters_devices(self, eventid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
             print("get_event")
             print(eventid)
 

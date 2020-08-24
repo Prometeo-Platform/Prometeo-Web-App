@@ -1,7 +1,6 @@
 #import requests
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
 import logging
 
 class fuelTypes(object):
@@ -11,8 +10,14 @@ class fuelTypes(object):
 
     def get_allfueltypes(self):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             self.logger.debug('calling the stored procedure')
             cursor.callproc('sp_select_all_fuel_types')

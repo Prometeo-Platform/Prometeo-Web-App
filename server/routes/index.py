@@ -1,7 +1,7 @@
 from server import app
 import logging
 from flask import render_template, request, flash, Flask, session, redirect, url_for
-import mysql.connector
+import mariadb
 from flask import jsonify
 from .devices import devices
 from .firefighters import firefighters
@@ -151,8 +151,14 @@ def mapa_evento():
 @app.route('/testdb')
 def testdb():
 
-    con = mysql.connector.connect(**config)
-    cursor = con.cursor()
+    conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
     cursor.execute("SHOW DATABASES")
 
     for row in cursor:

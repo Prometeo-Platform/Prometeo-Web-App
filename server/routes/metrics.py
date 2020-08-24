@@ -1,6 +1,5 @@
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
 
 class metrics(object):
 
@@ -8,8 +7,14 @@ class metrics(object):
         print("get_allmetrics - entro en la funcion")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+           conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             print("get_allmetrics - llamada a sql")
 #            cursor.callproc('sp_select_metrics', (sensorid, event_date))

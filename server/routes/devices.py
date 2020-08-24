@@ -1,14 +1,26 @@
 #import requests
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
+import os
+import sys
+
+
+
 
 class devices(object):
 
     def insert_device(self, sensorid, model, version):
+
+        # Instantiate Connection
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_create_device', (sensorid, model, version))
 
@@ -20,9 +32,8 @@ class devices(object):
                 return True
             else:
                 return False
-
-        except Exception as e:
-            return None
+        except mariadb.Error as e:
+            print("Error connecting to MariaDB Platform: {e}")
 
         finally:
             cursor.close()
@@ -31,8 +42,14 @@ class devices(object):
 
     def update_device(self, sensorid, model, version):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_update_device', (sensorid, model, version))
 
@@ -45,6 +62,9 @@ class devices(object):
             else:
                 return False
 
+        except mariadb.Error as e:
+            print("Error connecting to MariaDB Platform: {e}")
+
         except Exception as e:
             return None
 
@@ -54,8 +74,14 @@ class devices(object):
 
     def get_device(self, sensorid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_select_device', (sensorid))
 
@@ -66,6 +92,9 @@ class devices(object):
                 return(data[0])
             else:
                 return None
+        
+        except mariadb.Error as e:
+            print("Error connecting to MariaDB Platform: {e}")
 
         except Exception as e:
             return None
@@ -78,8 +107,14 @@ class devices(object):
         print("get_alldevices - entro en la funcion")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             print("get_alldevices - llamada a sql")
             cursor.callproc('sp_select_all_devices')

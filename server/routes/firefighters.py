@@ -1,14 +1,19 @@
 #import requests
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
 
 class firefighters(object):
 
     def insert_firefighter(self, bomberoid, nombre, apellidos, email):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_create_firefighter', (bomberoid, nombre, apellidos, email))
 
@@ -31,8 +36,14 @@ class firefighters(object):
 
     def update_firefighter(self, bomberoid, nombre, apellidos, email):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_update_firefighter', (bomberoid, nombre, apellidos, email))
 
@@ -54,8 +65,14 @@ class firefighters(object):
 
     def get_firefighter(self, bomberoid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_select_firefighter', (bomberoid))
 
@@ -78,8 +95,14 @@ class firefighters(object):
         print("get_alldevices - entro en la funcion")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             print("get_alldevices - llamada a sql")
             cursor.callproc('sp_select_all_firefighters')

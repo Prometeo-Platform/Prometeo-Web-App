@@ -1,7 +1,7 @@
 import requests
 import json
-import mysql.connector
-from .configbdd import config
+import json
+import mariadb
 
 class eventTypes(object):
 
@@ -9,9 +9,14 @@ class eventTypes(object):
         print("get_alleventTypes - entro en la función")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
 
+            cursor = conn.cursor()
             print("get_alleventTypes - llamada a sql")
             cursor.callproc('sp_select_all_event_types')
             for result in cursor.stored_results():
