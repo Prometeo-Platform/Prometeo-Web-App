@@ -16,4 +16,4 @@ EXPOSE 3000
 
 COPY . /app
 ENV FLASK_APP=server/__init__.py
-CMD ["python", "manage.py", "start", "3000"]
+CMD ["python", "manage.py", "start", "0.0.0.0:3000"]

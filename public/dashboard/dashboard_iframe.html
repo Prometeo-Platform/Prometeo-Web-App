@@ -93,7 +93,16 @@ a.tooltip:hover::before {
 
 <script>
 $(document).ready(function() {
-let socket = new  WebSocket(`ws://159.8.222.232:31139`);
+
+// Create WebSocket connection. Currently using the nodeport IP of the websocket server
+// TODO: use loadbalancer for static IP
+// TODO: how to make this connection secure?
+const socket = new WebSocket('ws://159.122.237.12:32459');
+
+// Listen for messages
+// socket.addEventListener('message', function (event) {
+//     console.log('Message from server ', event.data);
+// });
 
     var dt1 = $('#example').DataTable({
         paging: false,
