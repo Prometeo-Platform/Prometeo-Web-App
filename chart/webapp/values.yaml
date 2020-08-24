@@ -4,6 +4,7 @@ webapp:
   name: webapp
   version: v1
   replicaCount: 1
+  namespace: default
   image:
     repository: uk.icr.io/prometeo-cluster/webapp
     pullPolicy: Always
