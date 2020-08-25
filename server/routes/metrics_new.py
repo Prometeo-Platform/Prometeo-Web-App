@@ -1,7 +1,15 @@
 import json
-import mariadn
+import os
+import mariadb
+from dotenv import load_dotenv
+import logging
 
 class metrics(object):
+    
+    def __init__(self):
+        load_dotenv()
+        self.logger = logging.getLogger('prometo.newmetric.new_metrics')
+        self.logger.debug('creating an instance of metrics')
 
     def get_allmetrics(self, sensorid, event_date, max_mediciones):
         print("get_allmetrics - entro en la funcion")
@@ -21,8 +29,7 @@ class metrics(object):
             cursor.callproc('sp_select_metrics', (sensorid, "10,02,2020", max_mediciones))
             print("get_allmetrics - sensorid")
             print(sensorid)
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
             if len(data) > 0:
                 print("get_allmetrics - Hay informacion")
                 return(data)
@@ -35,4 +42,4 @@ class metrics(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()

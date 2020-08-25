@@ -6,3 +6,4 @@ livereload
 flask_wtf
 requests
 mariadb
+python-dotenv

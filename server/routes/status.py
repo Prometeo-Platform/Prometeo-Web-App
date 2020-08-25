@@ -1,8 +1,17 @@
 #import requests
 import json
+import os
 import mariadb
+import logging
+from dotenv import load_dotenv
+
 
 class status(object):
+
+    def __init__(self):
+        load_dotenv()
+        self.logger = logging.getLogger('prometo.status.status_webapp')
+        self.logger.debug('creating an instance of status')
 
     def get_allstatus(self):
         print("get_allstatus - entro en la funcion")
@@ -19,8 +28,7 @@ class status(object):
 
             print("get_allstatus - llamada a sql")
             cursor.callproc('sp_select_all_status')
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
             if len(data) > 0:
                 print("get_allstatus - Hay informacion")
                 for i in data:
@@ -35,4 +43,4 @@ class status(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
