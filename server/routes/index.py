@@ -1,16 +1,17 @@
 from server import app
 import logging
+import os
 from flask import render_template, request, flash, Flask, session, redirect, url_for
-import mysql.connector
+import mariadb
 from flask import jsonify
 from .devices import devices
 from .firefighters import firefighters
 from .events import event
-from .configbdd import config
 from .fuel_types import fuelTypes
 from .status import status
 from .event_types import eventTypes
 from .metrics import metrics
+from dotenv import load_dotenv
 
 # create logger with 'prometeo'
 logger = logging.getLogger('prometeo')
@@ -31,6 +32,7 @@ def page_not_found(error):
 @app.errorhandler(500)
 @app.route("/error500")
 def requests_error(error):
+    logger.info(error)
     return app.send_static_file('500.html')
 
 @app.route('/index')
@@ -151,15 +153,22 @@ def mapa_evento():
 @app.route('/testdb')
 def testdb():
 
-    con = mysql.connector.connect(**config)
-    cursor = con.cursor()
+    load_dotenv()
+
+    conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                port=3306)
+
+    cursor = conn.cursor()
     cursor.execute("SHOW DATABASES")
 
     for row in cursor:
         print(row[0])
 
     cursor.close()
-    con.close()
+    conn.close()
 
     state = {"status": "Connection to Database OK"}
     return jsonify(state)

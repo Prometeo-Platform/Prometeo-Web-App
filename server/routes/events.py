@@ -1,19 +1,32 @@
 #import requests
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
+import os
+import logging
+from dotenv import load_dotenv
 
 class event(object):
 
+    def __init__(self):
+        load_dotenv()
+        self.logger = logging.getLogger('prometo.event.events')
+        self.logger.debug('creating an instance of event')
+
     def insert_event(self, data):
+
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = 3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_create_event', (data))
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
             if len(data[0][0]) is 0:
                 con.commit()
@@ -26,18 +39,22 @@ class event(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
 
     def update_event(self, data):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = 3306)
 
+            cursor = conn.cursor()
             cursor.callproc('sp_update_event', (data))
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
             if len(data[0][0]) is 0:
                 con.commit()
@@ -50,12 +67,18 @@ class event(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
     def get_event(self, eventid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = 3306)
+
+            cursor = conn.cursor()
             print("get_event")
             print(eventid)
 
@@ -63,8 +86,7 @@ class event(object):
 
             print("get_event - he abierto el cursor")
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
 
             if len(data) > 0:
@@ -78,19 +100,24 @@ class event(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
     def get_allevents(self):
         print("get_allevents - entro en la funcion")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = 3306)
+
+            cursor = conn.cursor()
 
             print("get_allevents - llamada a sql")
             cursor.callproc('sp_select_all_events')
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
             if len(data) > 0:
                 print("get_allevents - Hay informacion")
                 for i in data:
@@ -105,12 +132,18 @@ class event(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
     def get_event_firefighters_devices(self, eventid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
             print("get_event")
             print(eventid)
 
@@ -118,8 +151,7 @@ class event(object):
 
             print("get_event_firefighters_devices - he abierto el cursor")
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
 
             if len(data) > 0:
@@ -137,4 +169,4 @@ class event(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()

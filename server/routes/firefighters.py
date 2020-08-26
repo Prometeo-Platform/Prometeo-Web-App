@@ -1,19 +1,33 @@
 #import requests
 import json
-import mysql.connector
-from .configbdd import config
+import mariadb
+import os
+import logging
+from dotenv import load_dotenv
 
 class firefighters(object):
 
+    def __init__(self):
+        load_dotenv()
+        self.logger = logging.getLogger('prometo.firefighters.fire_fighters')
+        self.logger.debug('creating an instance of firefighters')
+
     def insert_firefighter(self, bomberoid, nombre, apellidos, email):
+
+        
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_create_firefighter', (bomberoid, nombre, apellidos, email))
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
             if len(data[0][0]) is 0:
                 con.commit()
@@ -26,18 +40,23 @@ class firefighters(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
 
     def update_firefighter(self, bomberoid, nombre, apellidos, email):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_update_firefighter', (bomberoid, nombre, apellidos, email))
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
             if len(data[0][0]) is 0:
                 con.commit()
@@ -50,17 +69,22 @@ class firefighters(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
     def get_firefighter(self, bomberoid):
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
+
+            cursor = conn.cursor()
 
             cursor.callproc('sp_select_firefighter', (bomberoid))
 
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
 
             if len(data) > 0:
                 return(data[0])
@@ -72,31 +96,36 @@ class firefighters(object):
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
 
     def get_allfirefighters(self):
         print("get_alldevices - entro en la funcion")
 
         try:
-            con = mysql.connector.connect(**config)
-            cursor = con.cursor()
+            conn = mariadb.connect(
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database="prometeo",
+                port=3306)
 
-            print("get_alldevices - llamada a sql")
+            cursor = conn.cursor()
+
+            self.logger.info("get_alldevices - llamada a sql")
             cursor.callproc('sp_select_all_firefighters')
-            for result in cursor.stored_results():
-                data = result.fetchall()
+            data = cursor.fetchall()
             if len(data) > 0:
-                print("get_alldevices - Hay informacion")
+                self.logger.info("get_alldevices - Hay informacion")
                 for i in data:
-                    print(i)
+                    self.logger.info(i)
                 return(data)
             else:
-                print("get_alldevices - NO HAY INFORMACION")
+                self.logger.info("get_alldevices - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            print("get_alldevices - Estoy en la excepcion")
+            self.logger.info("get_alldevices - Estoy en la excepcion")
             return None
 
         finally:
             cursor.close()
-            con.close()
+            conn.close()
