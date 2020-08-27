@@ -9,7 +9,7 @@ class event(object):
 
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('prometo.event.events')
+        self.logger = logging.getLogger('prometeo.event.events')
         self.logger.debug('creating an instance of event')
 
     def insert_event(self, data):
@@ -20,7 +20,7 @@ class event(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -28,7 +28,7 @@ class event(object):
 
             data = cursor.fetchall()
 
-            if len(data[0][0]) is 0:
+            if len(data[0][0]) == 0:
                 con.commit()
                 return True
             else:
@@ -49,14 +49,14 @@ class event(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
             cursor.callproc('sp_update_event', (data))
 
             data = cursor.fetchall()
 
-            if len(data[0][0]) is 0:
+            if len(data[0][0]) == 0:
                 con.commit()
                 return True
             else:
@@ -76,7 +76,7 @@ class event(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
             print("get_event")
@@ -111,7 +111,7 @@ class event(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -137,11 +137,11 @@ class event(object):
     def get_event_firefighters_devices(self, eventid):
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
             print("get_event")

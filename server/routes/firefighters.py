@@ -9,7 +9,7 @@ class firefighters(object):
 
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('prometo.firefighters.fire_fighters')
+        self.logger = logging.getLogger('prometeo.firefighters.fire_fighters')
         self.logger.debug('creating an instance of firefighters')
 
     def insert_firefighter(self, bomberoid, nombre, apellidos, email):
@@ -17,11 +17,11 @@ class firefighters(object):
         
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -29,7 +29,7 @@ class firefighters(object):
 
             data = cursor.fetchall()
 
-            if len(data[0][0]) is 0:
+            if len(data[0][0]) == 0:
                 con.commit()
                 return True
             else:
@@ -46,11 +46,11 @@ class firefighters(object):
     def update_firefighter(self, bomberoid, nombre, apellidos, email):
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -58,7 +58,7 @@ class firefighters(object):
 
             data = cursor.fetchall()
 
-            if len(data[0][0]) is 0:
+            if len(data[0][0]) == 0:
                 con.commit()
                 return True
             else:
@@ -74,11 +74,11 @@ class firefighters(object):
     def get_firefighter(self, bomberoid):
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -103,11 +103,11 @@ class firefighters(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 

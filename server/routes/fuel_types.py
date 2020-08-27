@@ -9,7 +9,7 @@ class fuelTypes(object):
     def __init__(self):
         load_dotenv()
         logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
-        self.logger = logging.getLogger('prometo.fuel_types.fuelTypes')
+        self.logger = logging.getLogger('prometeo.fuel_types.fuelTypes')
         self.logger.info('creating an instance of fuelTypes')
 
     def get_allfueltypes(self):
@@ -18,7 +18,8 @@ class fuelTypes(object):
                 user = os.getenv("MARIADB_USERNAME"),
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
-                database = "prometeo")
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
