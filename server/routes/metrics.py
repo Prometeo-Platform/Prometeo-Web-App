@@ -8,7 +8,7 @@ class metrics(object):
 
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('prometo.metric.metrics')
+        self.logger = logging.getLogger('prometeo.metric.metrics')
         self.logger.debug('creating an instance of metrics')
 
     def get_allmetrics(self, sensorid, event_date, max_mediciones):
@@ -16,12 +16,11 @@ class metrics(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
-
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
             cursor = conn.cursor()
 
             print("get_allmetrics - llamada a sql")

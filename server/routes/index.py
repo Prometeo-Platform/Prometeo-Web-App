@@ -159,7 +159,7 @@ def testdb():
                 user=os.getenv("MARIADB_USERNAME"),
                 password=os.getenv("MARIADB_PASSWORD"),
                 host=os.getenv("MARIADB_HOST"),
-                port=3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
     cursor = conn.cursor()
     cursor.execute("SHOW DATABASES")

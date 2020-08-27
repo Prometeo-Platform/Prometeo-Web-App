@@ -13,7 +13,7 @@ class devices(object):
 
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('prometo.device.devices')
+        self.logger = logging.getLogger('prometeo.device.devices')
         self.logger.debug('creating an instance of devices')
 
     def insert_device(self, sensorid, model, version):
@@ -25,7 +25,7 @@ class devices(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -33,7 +33,7 @@ class devices(object):
 
             data = cursor.fetchall()
 
-            if len(data[0][0]) is 0:
+            if len(data[0][0]) == 0:
                 con.commit()
                 return True
             else:
@@ -53,7 +53,7 @@ class devices(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -61,7 +61,7 @@ class devices(object):
 
             data = cursor.fetchall()
 
-            if len(data[0][0]) is 0:
+            if len(data[0][0]) == 0:
                 con.commit()
                 return True
             else:
@@ -84,7 +84,7 @@ class devices(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 
@@ -116,7 +116,7 @@ class devices(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 

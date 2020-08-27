@@ -10,7 +10,7 @@ class status(object):
 
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('prometo.status.status_webapp')
+        self.logger = logging.getLogger('prometeo.status.status_webapp')
         self.logger.debug('creating an instance of status')
 
     def get_allstatus(self):
@@ -18,11 +18,11 @@ class status(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database="prometeo",
-                port=3306)
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
 

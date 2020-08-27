@@ -9,7 +9,7 @@ class eventTypes(object):
 
     def __init__(self):
             load_dotenv()
-            self.logger = logging.getLogger('prometo.eventTypes.event_Types')
+            self.logger = logging.getLogger('prometeo.eventTypes.event_Types')
             self.logger.debug('creating an instance of eventTypes')
 
     def get_alleventtypes(self):
@@ -21,7 +21,7 @@ class eventTypes(object):
                 password = os.getenv("MARIADB_PASSWORD"),
                 host = os.getenv("MARIADB_HOST"),
                 database = "prometeo",
-                port = 3306)
+                port = int(os.getenv("MARIADB_PORT")))
 
             cursor = conn.cursor()
             print("get_alleventTypes - llamada a sql")
