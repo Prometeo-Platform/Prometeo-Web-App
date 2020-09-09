@@ -1,18 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import Sensors from './sensors';
-import Team from './team';
+import ReportChart from './reportChart';
 
-function Dashboard() {
+function Reports() {
   return (
     <div>
       <Header />
       <SideMenu />
-      <Sensors />
-      <Team />
+      <ReportChart />
     </div>
   );
 }
 
-export default Dashboard;
+export default Reports;

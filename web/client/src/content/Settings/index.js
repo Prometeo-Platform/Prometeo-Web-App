@@ -1,18 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import Sensors from './sensors';
-import Team from './team';
+import SettingTable from './settingTable';
 
-function Dashboard() {
+function Settings() {
   return (
     <div>
       <Header />
       <SideMenu />
-      <Sensors />
-      <Team />
+      <SettingTable />
     </div>
   );
 }
 
-export default Dashboard;
+export default Settings;

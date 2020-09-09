@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import {
   Header,
   HeaderName,
@@ -15,34 +16,34 @@ import Search20 from "@carbon/icons-react/lib/search/20";
 const TutorialHeader = () => (
   <Header aria-label="Prometeo">
     <SkipToContent />
-    <HeaderName href="/" prefix="Prometeo">
+    <HeaderName element={Link} href="/" prefix="Prometeo">
       Platform
     </HeaderName>
     <HeaderNavigation aria-label="Prometeo Dashboard">
-      <HeaderMenuItem isCurrentPage href="#">
+      <HeaderMenuItem isCurrentPage href="/">
         Dashboard
       </HeaderMenuItem>
       <HeaderMenu aria-label="Administration" menuLinkName="Administration">
-        <HeaderMenuItem href="#">
+        <HeaderMenuItem element={Link} to="/events">
           Events / Eventos
         </HeaderMenuItem>
-        <HeaderMenuItem href="#">
+        <HeaderMenuItem element={Link} to="/devices">
           Devices / Dispositivos
         </HeaderMenuItem>
-        <HeaderMenuItem href="#">
+        <HeaderMenuItem element={Link} to="/firefighters">
           Firefighters / Bomberos
         </HeaderMenuItem>
-        <HeaderMenuItem href="#">
+        <HeaderMenuItem element={Link} to="/reports">
           Reports
         </HeaderMenuItem>
       </HeaderMenu>
     </HeaderNavigation>
     <HeaderGlobalBar>
       <HeaderGlobalAction aria-label="Search">
-        <Search20 />
+        <Search20 element={Link} to="/" />
       </HeaderGlobalAction>
       <HeaderGlobalAction aria-label="User Avatar">
-        <UserAvatar20 />
+        <UserAvatar20 element={Link} to="/profile" />
       </HeaderGlobalAction>
     </HeaderGlobalBar>
   </Header>
