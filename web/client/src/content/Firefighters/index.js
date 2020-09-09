@@ -1,18 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import Sensors from './sensors';
-import Team from './team';
+import FirefighterTable from './firefighterTable';
 
-function Dashboard() {
+function Firefighters() {
   return (
     <div>
       <Header />
       <SideMenu />
-      <Sensors />
-      <Team />
+      <FirefighterTable />
     </div>
   );
 }
 
-export default Dashboard;
+export default Firefighters;

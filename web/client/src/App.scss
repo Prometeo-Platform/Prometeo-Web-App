@@ -6,5 +6,12 @@ $small: 672px;
 @import 'carbon-components/scss/globals/scss/vars.scss';
 
 @import './content/Dashboard/Dashboard.scss';
+@import './content/Events/Events.scss';
+@import './content/Firefighters/Firefighters.scss';
+@import './content/Reports/Reports.scss';
+@import './content/Profile/Profile.scss';
+@import './content/Settings/Settings.scss';
+@import './content/Devices/Devices.scss';
+
 @import './components/SideMenu/SideMenu.scss';
 @import './components/Tile/Tile.scss';

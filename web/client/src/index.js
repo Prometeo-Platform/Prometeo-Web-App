@@ -1,8 +1,8 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -21,9 +21,11 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <Router>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>,
+  </Router>,
   document.getElementById('root')
 );
 serviceWorker.unregister();
