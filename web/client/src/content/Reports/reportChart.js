@@ -1,58 +1,115 @@
 import React from 'react';
-import Tile from '../../components/Tile';
-import AccelerationsChart from '../../components/AccelerationsChart';
-import { Button } from 'carbon-components-react';
-import API from '../../rest/api';
-import { Query } from 'react-apollo';
-import { MAX_ACC } from '../../graphql/queries';
-
-const POLL_INTERVAL = 1000;
+import { AreaChart } from "@carbon/charts-react";
 
 function ReportChart() {
+  const state = {
+      data: [
+      {
+        "group": "Dataset 1",
+        "date": "2019-01-01T05:00:00.000Z",
+        "value": 0
+      },
+      {
+        "group": "Dataset 1",
+        "date": "2019-01-06T05:00:00.000Z",
+        "value": 57312
+      },
+      {
+        "group": "Dataset 1",
+        "date": "2019-01-08T05:00:00.000Z",
+        "value": 21432
+      },
+      {
+        "group": "Dataset 1",
+        "date": "2019-01-15T05:00:00.000Z",
+        "value": 70323
+      },
+      {
+        "group": "Dataset 1",
+        "date": "2019-01-19T05:00:00.000Z",
+        "value": 21300
+      },
+      {
+        "group": "Dataset 2",
+        "date": "2019-01-01T05:00:00.000Z",
+        "value": 50000
+      },
+      {
+        "group": "Dataset 2",
+        "date": "2019-01-05T05:00:00.000Z",
+        "value": 15000
+      },
+      {
+        "group": "Dataset 2",
+        "date": "2019-01-08T05:00:00.000Z",
+        "value": 20000
+      },
+      {
+        "group": "Dataset 2",
+        "date": "2019-01-13T05:00:00.000Z",
+        "value": 39213
+      },
+      {
+        "group": "Dataset 2",
+        "date": "2019-01-19T05:00:00.000Z",
+        "value": 61213
+      },
+      {
+        "group": "Dataset 3",
+        "date": "2019-01-02T05:00:00.000Z",
+        "value": 10
+      },
+      {
+        "group": "Dataset 3",
+        "date": "2019-01-06T05:00:00.000Z",
+        "value": 37312
+      },
+      {
+        "group": "Dataset 3",
+        "date": "2019-01-08T05:00:00.000Z",
+        "value": 51432
+      },
+      {
+        "group": "Dataset 3",
+        "date": "2019-01-13T05:00:00.000Z",
+        "value": 40323
+      },
+      {
+        "group": "Dataset 3",
+        "date": "2019-01-19T05:00:00.000Z",
+        "value": 31300
+      }
+    ],
+      options: {
+      "title": "Gas accumulation",
+      "axes": {
+        "bottom": {
+          "title": "2019 Annual Sales Figures",
+          "mapsTo": "date",
+          "scaleType": "time"
+        },
+        "left": {
+          "mapsTo": "value",
+          "title": "Measure (ppm)",
+          "scaleType": "linear"
+        }
+      },
+      "height": "400px"
+    }
+	};
   return (
     <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-      {/* Tiles */}
-      <div className="bx--row sensors-page__r1">
-        <div className="bx--col-lg-4 bx--col-md-4 sensors-page__tile">
-          <Tile title="Status" main={'1'} small={'Online'}></Tile>
-        </div>
-
-        <div className="bx--col-lg-4 bx--col-md-4 sensors-page__tile">
-          <Query query={MAX_ACC} pollInterval={POLL_INTERVAL}>
-            {({ loading, error, data }) => {
-              if (loading) return <div>Fetching</div>;
-              if (error || !data) return <div>Error</div>;
-
-              return (
-                <Tile
-                  title="Peak Acceleration"
-                  main={data.maxAcc}
-                  small={'Gals (cm/s)' + String.fromCharCode(178)}
-                ></Tile>
-              );
-            }}
-          </Query>
-        </div>
-      </div>
-
-      {/* Chart */}
       <div className="bx--row sensors-page__r2">
         <div className="bx--col-lg-16">
-          <AccelerationsChart />
+        
+        <AreaChart
+          data={state.data}
+          options={state.options}>
+        </AreaChart>
+
         </div>
       </div>
-
-      <div className="bx--row sensors-page__r3">
-        <div className="bx--col-lg-16">
-          <Button kind="primary" onClick={API.resetStream}>
-            Reset Simulation
-          </Button>
-        </div>
       </div>
-
-      {/* Table */}
-      <div className="bx--row sensors-page__r3"></div>
-    </div>
   );
 }
 
