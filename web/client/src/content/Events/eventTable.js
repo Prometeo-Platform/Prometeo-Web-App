@@ -48,7 +48,7 @@ function EventTable() {
   
   const rowData = [
     {
-      id: 1,
+      id: '1',
       code: 'REMS-08-02-2020',
       type: 'Controlled burn',
       team: 10,
@@ -56,7 +56,7 @@ function EventTable() {
       actions: '',
     },
     {
-      id: 2,
+      id: '2',
       code: 'REMS-09-02-2020',
       type: 'Controlled burn',
       team: 10,
@@ -64,7 +64,7 @@ function EventTable() {
       actions: '',
     },
     {
-      id: 3,
+      id: '3',
       code: 'REMS-10-02-2020',
       type: 'Controlled burn',
       team: 10,
@@ -72,7 +72,7 @@ function EventTable() {
       actions: '',
     },
     {
-      id: 4,
+      id: '4',
       code: 'REMS-11-02-2020',
       type: 'Controlled burn',
       team: 10,

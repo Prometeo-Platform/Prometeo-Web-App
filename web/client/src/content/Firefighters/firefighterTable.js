@@ -26,15 +26,15 @@ function FirefighterTable() {
     },
     {
       header: 'First name',
-      key: 'code',
+      key: 'first',
     },
     {
       header: 'Last name',
-      key: 'type',
+      key: 'last',
     },
     {
       header: 'Email',
-      key: 'team',
+      key: 'email',
     },
     {
       header: 'Actions',
@@ -45,30 +45,30 @@ function FirefighterTable() {
   const rowData = [
     {
       id: 'GRAF001',
-      code: 'Joan',
-      type: 'Herrera',
-      team: 'graf001@graf.cat',
+      first: 'Joan',
+      last: 'Herrera',
+      email: 'graf001@graf.cat',
       actions: '',
     },
     {
       id: 'GRAF002',
-      code: 'Marco',
-      type: 'Rodriguez',
-      team: 'graf002@graf.cat',
+      first: 'Marco',
+      last: 'Rodriguez',
+      email: 'graf002@graf.cat',
       actions: '',
     },
     {
       id: 'GRAF003',
-      code: 'Marisol',
-      type: 'Santillan',
-      team: 'graf003@graf.cat',
+      first: 'Marisol',
+      last: 'Santillan',
+      email: 'graf003@graf.cat',
       actions: '',
     },
     {
       id: 'GRAF004',
-      code: 'Upkarno',
-      type: 'Lidderez',
-      team: 'graf004@graf.cat',
+      first: 'Upkarno',
+      last: 'Lidderez',
+      email: 'graf004@graf.cat',
       actions: '',
     },
   ];
