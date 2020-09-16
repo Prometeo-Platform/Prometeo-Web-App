@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import FirefighterTable from './firefighterTable';
+import FirefightersTable from './firefightersTable';
 
 function Firefighters() {
   return (
     <div>
       <Header />
       <SideMenu />
-      <FirefighterTable />
+      <FirefightersTable />
     </div>
   );
 }

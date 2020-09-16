@@ -18,7 +18,7 @@ import {
 import Edit20 from "@carbon/icons-react/lib/edit/20";
 import Delete20 from "@carbon/icons-react/lib/delete/20";
 
-function FirefighterTable() {
+function FirefightersTable() {
   const headerData = [
     {
       header: 'Firefighter ID',
@@ -139,4 +139,4 @@ function FirefighterTable() {
   );
 }
 
-export default FirefighterTable;
+export default FirefightersTable;
