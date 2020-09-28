@@ -37,13 +37,13 @@ You can run this solution locally in docker as follows
     ```
         docker run -p 3306:3306 --name prometeo-mariadb -e MYSQL_ROOT_PASSWORD='' -d mariadb
     ```
-    MYSQL_ROOT_PASSWORD is the initial password you want to set for the db login
-    3. Test the image by logging into the container once it is running
+    FYI: MYSQL_ROOT_PASSWORD is the initial password you want to set for the db login
+   3. Test the image by logging into the container once it is running
     ```
     docker exec -it prometeo-mariadb mysql -uroot -p
     ```
     FYI: This command might also useful for loading the dump
-    4. Use the prometeo.sql and procedure.sql to dump into the new database to get the initial framework set from https://github.com/Code-and-Response/Prometeo-Database
+   4. Use the prometeo.sql and procedure.sql to dump into the new database to get the initial framework set from https://github.com/Code-and-Response/Prometeo-Database
 
 
 3. Create python virtual environment
